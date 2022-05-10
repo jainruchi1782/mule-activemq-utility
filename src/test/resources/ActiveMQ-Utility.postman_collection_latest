@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "5ca9c35c-3b47-46b7-99d1-ce3400e3f222",
+		"name": "ActiveMQ Utility",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read Message from MQ - Direct",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8161/api/message/ecm.incoming?type=queue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8161",
+					"path": [
+						"api",
+						"message",
+						"ecm.incoming"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "queue"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Message to MQ - Direct",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"test\":\"ruchi jms test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8161/api/message?Sender=EIM&Receiver=Spectrum&Transaction=DeliveryPackage&StatusResponseRequired=false&TransactionId=Test-JMS-1&CorrelationID=Test-JMS-1&ClientCode=SBGC&destination=queue://spectrum.wfrequest.incoming&Type=DataSvcs&JMSPriority=6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8161",
+					"path": [
+						"api",
+						"message"
+					],
+					"query": [
+						{
+							"key": "Sender",
+							"value": "EIM"
+						},
+						{
+							"key": "Receiver",
+							"value": "Spectrum"
+						},
+						{
+							"key": "Transaction",
+							"value": ""
+						},
+						{
+							"key": "StatusResponseRequired",
+							"value": "false"
+						},
+						{
+							"key": "TransactionId",
+							"value": "Test-JMS-1"
+						},
+						{
+							"key": "CorrelationID",
+							"value": "Test-JMS-1"
+						},
+						{
+							"key": "JMSCorrelationID",
+							"value": "Test-JMS-1",
+							"disabled": true
+						},
+						{
+							"key": "ClientCode",
+							"value": "SBGC"
+						},
+						{
+							"key": "destination",
+							"value": "queue://queuename
+						},
+						{
+							"key": "Type",
+							"value": "DataSvcs"
+						},
+						{
+							"key": "JMSPriority",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replay message by timestamp with selector expression",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "environment",
+						"value": "local",
+						"type": "text"
+					},
+					{
+						"key": "dlqqueuename",
+						"value": "DLQ.ecm.incoming",
+						"type": "text"
+					},
+					{
+						"key": "queuename",
+						"value": "ecm.incoming",
+						"type": "text"
+					},
+					{
+						"key": "fromtime",
+						"value": "2020-08-02 11:00:17.123456789",
+						"type": "text"
+					},
+					{
+						"key": "totime",
+						"value": "2020-08-03 12:00:17.123456789",
+						"type": "text"
+					},
+					{
+						"key": "clientcode",
+						"value": "SBGC",
+						"type": "text"
+					},
+					{
+						"key": "transactionname",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "selectorexpression",
+						"value": "Transaction = ''",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8103/api/v1/replaymessagebytimestamp",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8103",
+					"path": [
+						"api",
+						"v1",
+						"replaymessagebytimestamp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Replay message by timestamp",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "environment",
+						"type": "text",
+						"value": "local"
+					},
+					{
+						"key": "dlqqueuename",
+						"type": "text",
+						"value": "DLQ.ecm.incoming"
+					},
+					{
+						"key": "queuename",
+						"type": "text",
+						"value": "ecm.incoming"
+					},
+					{
+						"key": "fromtime",
+						"type": "text",
+						"value": "2020-08-02 11:00:17.123456789"
+					},
+					{
+						"key": "totime",
+						"type": "text",
+						"value": "2020-08-03 12:00:17.123456789"
+					},
+					{
+						"key": "clientcode",
+						"type": "text",
+						"value": "SBGC"
+					},
+					{
+						"key": "transactionname",
+						"type": "text",
+						"value": "SubmiteAPPService"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8103/api/v1/replaymessagebytimestamp",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8103",
+					"path": [
+						"api",
+						"v1",
+						"replaymessagebytimestamp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read message without consume",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "environment",
+						"value": "local",
+						"type": "text"
+					},
+					{
+						"key": "fromtime",
+						"value": "2020-08-02 11:00:17.123456789",
+						"type": "text"
+					},
+					{
+						"key": "totime",
+						"value": "2020-08-03 12:00:17.123456789",
+						"type": "text"
+					},
+					{
+						"key": "queuename",
+						"value": "ecm.incoming",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8103/api/v1/readmessage",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8103",
+					"path": [
+						"api",
+						"v1",
+						"readmessage"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
