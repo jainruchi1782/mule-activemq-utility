@@ -1,0 +1,97 @@
+#%RAML 1.0
+title: activemq-utility
+baseUri: http://localhost:8103/api
+version: 1.0
+
+/v1:
+  /readmessage:
+    description: API to retreive message(s) from active mq
+    get: 
+      headers:
+        x-correlation-id:
+          type: string
+          required : false
+          description: Unique transaction id passed in the header which will used for tracking the transaction across the API boundaries
+        queuename:
+          type: string
+          required : true
+          description: QUEUE NAME
+        environment:
+          type: string
+          required : true
+          enum: ["local","dev","qa"]
+          description: Environment
+        fromtime:
+          type: string
+          required : false
+          description: From Time Range
+          example: "2020-07-15 11:00:17.123456789"
+        totime:
+          type: string
+          required : false
+          description: To Time Range
+          example: "2020-07-15 11:00:17.123456789"       
+      responses: 
+        200:
+          headers:
+            x-correlation-id:
+              type: string
+              required : false
+              description: Unique transaction id passed in the header which will used for tracking the transaction across the API boundaries
+          body: 
+            application/json:
+  /replaymessagebytimestamp:
+    description: API to replay message(s) from active mq
+    post: 
+      headers:
+        x-correlation-id:
+          type: string
+          required : false
+          description: Unique transaction id passed in the header which will used for tracking the transaction across the API boundaries
+        dlqqueuename:
+          type: string
+          required : true
+          description: QUEUE NAME
+        queuename:
+          type: string
+          required : true
+          description: QUEUE NAME
+        environment:
+          type: string
+          required : true
+          enum: ["local","dev","qa"]
+          description: Environment
+        fromtime:
+          type: string
+          required : true
+          description: From Time Range
+          example: "2020-07-15 11:00:17.123456789"
+        totime:
+          type: string
+          required : true
+          description: To Time Range
+          example: "2020-07-15 11:00:17.123456789"
+        clientcode:
+          type: string
+          required : true
+          description: client code
+          example: "SBGC"
+        transactionname:
+          type: string
+          required : true
+          description: To Time Range
+          example: "SubmiteAPPService"
+        selectorexpression:
+          type: string
+          required : false
+          description: To Time Range
+          example: "JMSTimestamp BETWEEN 31423166 AND 2136521771 || ClientCode = 'SBGC' || Transaction = 'SubmiteAPPService'"
+      responses: 
+        200:
+          headers:
+            x-correlation-id:
+              type: string
+              required : false
+              description: Unique transaction id passed in the header which will used for tracking the transaction across the API boundaries
+          body: 
+            application/json:
